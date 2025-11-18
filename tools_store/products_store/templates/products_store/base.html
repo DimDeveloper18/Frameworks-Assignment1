@@ -1,0 +1,135 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'products_store/css/homemob.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'products_store/css/homemed.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'products_store/css/homelarge.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'products_store/css/regbutt.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'products_store/css/aside.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'products_store/css/toolsp.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'products_store/css/toolsjs.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'products_store/css/contact.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'products_store/css/delivery.css' %}">
+    <link rel="icon" href="{% static 'products_store/product_image/spstlogo.jpg' %}">
+    <title>Tool Store</title>
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+                <img id="mlogo" src="{% static 'products_store/product_image/spstlogo.jpg' %}" alt="Site Logo" height="30" width="50">
+                <h1>Tools Store</h1>
+                    <div class="regbutt">
+                        {% if user.is_authenticated %}
+                                <button id="bask"><a href="{% url 'products_store-basket_page' %}">Basket</a></button>
+                                <form method="POST" action="{% url 'products_store-logout' %}">
+                                    {% csrf_token %}
+                                    <button id="logoutbtn" type="submit">Logout</button>
+                                </form>
+                        {% else %}
+                            <button id="regBtn"><a href="{% url 'products_store-reg_form' %}">Registration</a></button>
+                            <button id="logBtn"><a href="{% url 'products_store-login' %}">Login</a></button>
+                        {% endif %}
+                    </div>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'products_store-index' %}">Home</a></li>
+                <li><a href="{% url 'products_store-tools' %}">Tools</a></li>
+                <li id="contli"><a href="{% url 'products_store-contact' %}">Contact us</a></li>
+                <li id="delivli"><a href="{% url 'products_store-delivery' %}">Delivery</a></li>
+            </ul>
+            <div class="soclink">
+                <ul>
+                    <li><a href="https://www.facebook.com/"><img src="{% static 'products_store/product_image/fbklink.png' %}" alt="Facebook" height="30" width="30"></a></li>
+                    <li><a href="https://www.instagram.com/"><img src="{% static 'products_store/product_image/instlink.png' %}" alt="Instagram" height="25" width="25"></a></li>
+                    <li><a href="https://twitter.com/"><img src="{% static 'products_store/product_image/xlink.png' %}" alt="X" height="30" width="30"></a></li>
+                    <li><a href="https://www.youtube.com/"><img src="{% static 'products_store/product_image/youbelink.png' %}" alt="Youtube" height="25" width="25"></a></li>
+                </ul>
+            </div>
+        </nav>
+    <main>
+        <div id="msg_sup" class="fs-4 fw-bold bg-secondary text-white mb-5">
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {% block main %}
+        {% endblock main%}
+    </main>
+        <aside>
+            {% if user.is_authenticated %}
+                <p class="text-danger fw-bold ps-5">Loged in {{ user.username }}!</p>
+                <a class="ps-5" href="{% url 'customers-profile_page' %}">Enter to your Profile</a>
+            {% endif%}
+            <article class="martic">
+                <h4 id="asHead">Best latest offers</h4>
+                <article class="bsell1" id="battery">
+                    <h5>Batteries</h5>
+                    <img src="{% static 'products_store/product_image/slbattery1.jpg' %}" alt="Sale Battery" height="50" width="100">
+                    <div id="windDet1">
+                        <strong>Bosch battery</strong> 
+                            <p>
+                                Proudct details<br>
+                                Model: GBA<br>
+                                Voltage: 18v 5Ah<br>
+                                Price: 70€<br>
+                            </p>
+                    </div>
+                </article>
+                <article class="bsell2" id="drill">
+                    <h5>Drill</h5>
+                    <img src="{% static 'products_store/product_image/sldrill1.jpg' %}" alt="Sale Drill" height="50" width="100">
+                    <div id="windDet1">
+                        <strong>Hitachi drill</strong> 
+                            <p>
+                                Proudct details<br>
+                                Model: BSL<br>
+                                Voltage: 240v<br>
+                                Price: 150€<br>
+                            </p>
+                    </div>
+                </article>
+                <article class="bsell3" id="skillsaw">
+                    <h5>Skill Saw</h5>
+                    <img src="{% static 'products_store/product_image/slskillsaw1.jpg' %}" alt="Sale Saw" height="50" width="100">
+                    <div id="windDet1">
+                        <strong>Makita skill saw</strong> 
+                            <p>
+                                Proudct details<br>
+                                Model: BMS<br>
+                                Voltage: 110v<br>
+                                Price: 250€<br>
+                            </p>
+                    </div>
+                </article>
+                <article class="bsell4" id="cordlessdrill">
+                    <h5>Cordless Drill</h5>
+                    <img src="{% static 'products_store/product_image/slcdrill1.jpg' %}" alt="Sale Cordles Drill" height="50" width="100">
+                    <div id="windDet1">
+                        <strong>DeWalt cordless drill</strong> 
+                            <p>
+                                Proudct details<br>
+                                Model: XR<br>
+                                Voltage: 18v 5Ah<br>
+                                Price: 200€<br>
+                            </p>
+                    </div>
+                </article>
+            </article>
+        </aside>
+    <footer>Copyright &copy; 2025 Tools Store - All rights reserved</footer>
+</div>
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{% static 'products_store/js/aside.js' %}"></script>
+    <script src="{% static 'products_store/js/toolsprod.js' %}"></script>
+</html>
