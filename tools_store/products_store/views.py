@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegisterForm, UserUpdateDetailsForm, User_profileUpdateForm
+from .forms import UserRegisterForm
 from django.contrib import messages
-# from .models import Comment
+from .models import Comment
 
 
 
@@ -18,6 +18,12 @@ def contact(request):
 
 def delivery(request):
     return render(request, 'products_store/delivery.html')
+
+def comments_view(request):
+    com_consist = {
+        'comments': Comment.objects.all()
+    }
+    return render(request, 'custom_comments/comments_page.html', com_consist)
 
 def reg_form(request):
     if request.method == 'POST':
