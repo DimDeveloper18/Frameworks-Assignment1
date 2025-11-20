@@ -24,7 +24,7 @@ def comments_view(request):
     com_consist = {
         'comments': Comment.objects.all()
     }
-    return render(request, 'custom_comments/comments_page.html', com_consist)
+    return render(request, 'products_store/comments_page.html', com_consist)
 
 def reg_form(request):
     if request.method == 'POST':
