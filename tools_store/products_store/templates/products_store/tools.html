@@ -234,16 +234,18 @@
             </table>
         </div>
         {% if user.is_authenticated %}
-        <section id="comresult">
+        <section id="comlist">
                 <h3>Comments</h3>
-            <ul class="list-unstyled text-start border border-dark border-3 px-5">
                 {% for comment in comments %}
-                <img src="{{ comment.comwriter.user_profile.image.url }}" class="rounded border border-dark border-4">
-                    <li class="fs-4 fw-bold">{{ comment.comname }} </li>
-                    <li class="fs-6"> Name: {{ comment.comwriter }} </li>
-                    <li class="fs-6"> Date: {{ comment.commented_date }} </li>
+                    <ul class="list-unstyled text-start border border-dark border-3 px-5">
+                            <img src="{{ comment.comwriter.user_profile.image.url }}" class="rounded border border-dark border-4">
+                            <li class="fs-4 fw-bold"><a href="{% url 'products_store-comments-view' %}">{{ comment.comname }}</a> </li>
+                            <li class="fs-6"> Name: {{ comment.comwriter }} </li>
+                            <li class="fs-6"> Date: {{ comment.commented_date }} </li>
+                    </ul>
+                {% empty %}
+                        <li>No comments yet.</li>
                 {% endfor %}
-            </ul>
         </section>
         {% endif %}
     </div>
