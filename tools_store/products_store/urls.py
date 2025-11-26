@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from .views import CommentsList, CommentsDetail, CommentsCreate
 
 
 urlpatterns = [
@@ -14,4 +15,7 @@ urlpatterns = [
     path('basket/', views.basket_page, name='products_store-basket_page'),
     path('comments_view/', views.comments_view, name='products_store-comments-view'),
     path('profile/', views.profile_page, name='products_store-profile_page'),
+    path('comment/<int:pk>', CommentsDetail.as_view(), name='products_store-comment-detail'),
+    path('comment/create/', CommentsCreate.as_view(), name='products_store-comment-create'),
+    path('tools/', CommentsList.as_view(), name='products_store-tools'),
 ]
