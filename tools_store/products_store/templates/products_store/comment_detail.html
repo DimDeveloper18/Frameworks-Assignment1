@@ -3,7 +3,7 @@
 {% block main %}
         {% if user.is_authenticated %}
             <section id="comresult">
-                <h3>Comments</h3>
+                <h3>Comment</h3>
                     <a class="ps-5" href="{% url 'products_store-comment-create' %}">Create Comment</a>
                         <ul class="list-unstyled text-start border border-dark border-3 px-5">
                             <img id="comw_img" src="{{ comment.comwriter.user_profile.image.url }}" class="rounded border border-dark border-4 my-4">
