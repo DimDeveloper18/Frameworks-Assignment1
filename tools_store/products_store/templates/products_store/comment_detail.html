@@ -12,6 +12,15 @@
                             <li class="fs-6"> Name: {{ comment.comwriter }} </li>
                             <li class="fs-6"> Date: {{ comment.commented_date }} </li>
                         </ul>
+                        <div id="subButtReg">
+                            <button type="submit" class="btn btn-secondary border border-dark border-2"><a class="text-white" href="{% url 'products_store-comment-update' object.id %}">Update</a></button>
+                            <button type="submit" class="btn btn-danger border border-dark border-2"><a class="text-white" href="{% url 'products_store-comment-delete' object.id %}">Delete</a></button>
+                        </div>
             </section>
+        {% else %}
+            <ul class="list-unstyled fs-4 fw-bold">
+                <li>Only registered users can see comments.</li>
+                <li>Please register or login.</li>
+            </ul>
         {% endif %}
 {% endblock main %}
