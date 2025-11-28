@@ -3,10 +3,10 @@ from .forms import UserRegisterForm, UserUpdateDetailsForm, User_profileUpdateFo
 from django.contrib import messages
 from .models import Comment
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
-from .forms import CommentForm
-
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+# from .forms import CommentForm
 
 
 # Create your views here.
@@ -18,7 +18,6 @@ def tools(request):
     comments = {
         'comments': Comment.objects.all(),
     }
-    # print(comments)
     return render(request, 'products_store/tools.html', comments)
 
 def contact(request):
@@ -51,6 +50,30 @@ class CommentsCreate(CreateView):
     def comment_form(self, form):
         form.instance.comwriter = self.request.user
         return super().comment_form(form)
+    
+class CommentsUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    fields = ['comname', 'comtext']
+
+    def comment_form(self, form):
+        form.instance.comwriter = self.request.user
+        return super().comment_form(form)
+    
+    def test_func(self):
+        comment = self.get_object()
+        if self.request.user == comment.comwriter:
+            return True
+        return False
+    
+class CommentsDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    success_url = "products_store-tools"
+
+    def test_func(self):
+        comment = self.get_object()
+        if self.request.user == comment.comwriter:
+            return True
+        return False
 
 def reg_form(request):
     if request.method == 'POST':
@@ -58,7 +81,7 @@ def reg_form(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Registration completed {'username'}! Please login.')
+            messages.success(request, f'Registration completed {username}! Please login.')
             return redirect('products_store-login')
     else:
         form = UserRegisterForm()
