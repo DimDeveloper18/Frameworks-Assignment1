@@ -1,0 +1,17 @@
+{% extends 'products_store/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block main %}
+    {% if user.is_authenticated %}
+        <section>
+            <form method="POST">
+                    {% csrf_token %}
+                        <p class="fs-4 fw-bold">To delete this comment press button please.</p>
+                        <p class="fs-4 fw-bold">{{object.comname}}</p>
+                        <div id="subButtReg">
+                            <button type="submit" class="btn btn-danger border border-dark border-2">Delete</button>
+                        </div>
+                </form>
+        </section>
+    {% endif %}
+{% endblock main %}
