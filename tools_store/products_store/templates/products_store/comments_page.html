@@ -1,7 +1,7 @@
 {% extends 'products_store/base.html' %}
 {% load static %}
 {% block main %}
-        {% if user.is_authenticated %}
+   {% if user.is_authenticated %}
         <section id="comresult">
                 <h3>Comments</h3>
                 {% for comment in comments %}
@@ -14,6 +14,11 @@
                             <li class="fs-6"> Date: {{ comment.commented_date }} </li>
                     </ul>
                 {% endfor %}
+    {% else %}
+        <ul class="list-unstyled fs-4 fw-bold">
+                <li>Only registered users can see comments.</li>
+                <li>Please register or login.</li>
+        </ul>
         </section>
-        {% endif %}
+   {% endif %}
 {% endblock main %}
