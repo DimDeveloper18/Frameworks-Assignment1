@@ -2,14 +2,21 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block main %}
-    <section>
-           <form method="POST">
-                {% csrf_token %}
-                   <h2>Create your comment</h2>
-                {{ form|crispy }}
-                    <div id="subButtReg">
-                        <button type="submit" class="btn btn-danger border border-dark border-2" value="Comment">Comment</button>
-                   </div>
-            </form>
-    </section>
-{% endblock main%}
+    {% if user.is_authenticated %}
+        <section>
+            <form method="POST">
+                    {% csrf_token %}
+                        <h2>Create your comment</h2>
+                    {{ form|crispy }}
+                        <div id="subButtReg">
+                            <button type="submit" class="btn btn-danger border border-dark border-2" value="Comment">Comment</button>
+                        </div>
+                </form>
+        </section>
+        {% else %}
+            <ul class="list-unstyled fs-4 fw-bold">
+                <li>Only registered users can commenting.</li>
+                <li>Please register or login.</li>
+            </ul>
+    {% endif %}
+{% endblock main %}
