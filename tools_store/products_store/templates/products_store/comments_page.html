@@ -7,7 +7,7 @@
                 {% for comment in comments %}
                     <a class="ps-5" href="{% url 'products_store-comment-create' %}">Create Comment</a>
                     <ul class="list-unstyled text-start border border-dark border-3 px-5">
-                            <img id="comw_img" src="{{ comment.comwriter.user_profile.image.url }}" class="rounded border border-dark border-4 my-4">
+                            <img id="comw_img" src="{{ user.comwriter.user_profile.image.url }}" class="rounded border border-dark border-4 my-4">
                             <li class="fs-4 fw-bold"><a href="{% url 'products_store-comment-detail' comment.id %}"> {{ comment.comname }}</a> </li>
                             <li>{{ comment.comtext }}</li>
                             <li class="fs-6"> Name: {{ comment.comwriter }} </li>
