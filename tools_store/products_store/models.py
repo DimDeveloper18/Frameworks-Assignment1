@@ -10,7 +10,7 @@ User = get_user_model()
 # Create your models here.
 
 class Comment(models.Model):
-    comwriter = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    comwriter = models.ForeignKey(User, on_delete=models.CASCADE)
     comname = models.CharField(max_length=100)
     comtext = models.TextField()
     commented_date = models.DateTimeField(default=timezone.now)
