@@ -3,10 +3,8 @@ from .forms import UserRegisterForm, UserUpdateDetailsForm, User_profileUpdateFo
 from django.contrib import messages
 from .models import Comment
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
-from django.views.generic.edit import CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-# from .forms import CommentForm
 
 
 # Create your views here.
@@ -41,23 +39,21 @@ class CommentsList(ListView):
 class CommentsDetail(DetailView):
     model = Comment
 
-class CommentsCreate(CreateView):
+class CommentsCreate(LoginRequiredMixin, CreateView):
     model = Comment
     fields = ['comname', 'comtext']
-    # form_class = CommentForm
-    # template_name = 'products_store/comment_form.html'
 
-    def comment_form(self, form):
+    def form_valid(self, form):
         form.instance.comwriter = self.request.user
-        return super().comment_form(form)
+        return super().form_valid(form)
     
 class CommentsUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Comment
     fields = ['comname', 'comtext']
 
-    def comment_form(self, form):
+    def form_valid(self, form):
         form.instance.comwriter = self.request.user
-        return super().comment_form(form)
+        return super().form_valid(form)
     
     def test_func(self):
         comment = self.get_object()
