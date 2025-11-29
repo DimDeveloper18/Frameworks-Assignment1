@@ -1,10 +1,21 @@
 {% extends 'products_store/base.html' %}
-{% load static %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static %}
 {% block main %}
         <section>
-            <div>
-                <img src="{{ user.user_profile.image.url }}" class="rounded border border-dark border-4">
+            <div class="media-body">
+                {% if user.user_profile.image %}
+                    <img src="{{ user.user_profile.image.url }}?f=auto&q=auto&c=fill&w=300&h=300" 
+                        class="rounded border border-dark border-4" 
+                        alt="Profile image of {{user.username}}" 
+                        width="70" heigth="70" 
+                        loading="lazy" decoding="async" />
+                {%else%}
+                    <img src="{% static 'products_store/default.jpg' %}" 
+                        class="rounded border border-dark border-4" 
+                        alt="Default profile image" 
+                        width="70" heigth="70" 
+                        loading="lazy" decoding="async" />
+                {% endif %}
                 <h2 fw-bold>{{ user.username }}</h2>
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
